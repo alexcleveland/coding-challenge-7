@@ -55,20 +55,31 @@ function calculateDepartmentSalary(department) {
         totalSalary += employee.salary;
 
         if(employee.subordinates.length > 0){
-        totalSalary += calculateDepartmentSalary(employee.subordinates);
+        totalSalary += calculateEmployeeSalary(employee.subordinates);
     }
 }
 return totalSalary;
 }
 
-function calculateDepartmentSalary(subordinates) {
+function calculateEmployeeSalary(subordinates) {
     let total = 0;
-    for (const subordinates of subordinates){
+    for (const subordinate of subordinates){
         total += subordinate.salary;
         if (subordinate.subordinates.length > 0){
-            total += calculateDepartmentSalary(subordinate.subordinates);
+            total += calculateEmployeeSalary(subordinate.subordinates);
         }
     }
     return total;
 }
 
+// Task 3 create a function to calculate the total salary for all departments 
+
+function calculateCompanySalary(company){
+    let companySalary = 0;
+    for(const department of company.departments){
+        companySalary += calculateDepartmentSalary(department);
+    }
+    return companySalary;
+}
+const totalSalary = calculateCompanySalary(company);
+console.log(`Total department salary for company; $${totalSalary}`);
